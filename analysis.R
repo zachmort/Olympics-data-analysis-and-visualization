@@ -129,7 +129,6 @@ events_region_joined %>%
   arrange(desc(total_medals)) %>%
   slice(1:1)
 
-#figure out how to put the olympics logo on the back of some of the graphs
-#animate the graphs for over time charts
+
 
 
