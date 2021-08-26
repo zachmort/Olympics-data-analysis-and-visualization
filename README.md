@@ -23,7 +23,7 @@ Questions I had going into this project:
 <!-- Add a demo for your project -->
 Below is a screenshot of one of the GGplot2 charts I created:
 
-![Picture](https://github.com/zachmort/League-of-Legends-Data-Analysis/blob/main/creepscroe_vs_earnedgold_scatterplot.png)
+![Picture](https://github.com/zachmort/Olympics-data-analysis-and-visualization/blob/main/Capture.PNG)
 
 # Packages Used
 - tidyverse
