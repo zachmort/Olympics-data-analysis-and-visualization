@@ -26,21 +26,12 @@ Below is a screenshot of one of the GGplot2 charts I created:
 ![Picture](https://github.com/zachmort/League-of-Legends-Data-Analysis/blob/main/creepscroe_vs_earnedgold_scatterplot.png)
 
 # Packages Used
-  - Tidyverse
-  - Magrittr
-  - Cowplot
-  - Pacman
-  - Rio
-  - Rmarkdown
-  - Lubridate 
-  - Grid
-  - Corrplot 
-  - Xtable
-  - Leaps 
-  - Caret
-  - ROCR 
-  - Plotly
-  - RColorBrewer
+- tidyverse
+- gganimate
+- data.table 
+- knitr
+- gridExtra
+- plotly
   
 # Table of contents
 - [Project Title](#Olympics-data-analysis-and-visualization)
