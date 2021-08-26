@@ -1,4 +1,4 @@
-![Banner](https://github.com/zachmort/League-of-Legends-Data-Analysis/blob/main/league-of-legends.jpg)
+![Banner](https://github.com/zachmort/Olympics-data-analysis-and-visualization/blob/main/olympics.jpg)
 
 # Olympics-data-analysis-and-visualization
 <!-- Add banner here -->
@@ -21,8 +21,7 @@ Questions I had going into this project:
 
 # Preview
 <!-- Add a demo for your project -->
-Below is a screenshot of one of the interactive PLotly charts:
-  This is a scatter plot of "Earned Gold" and "Total Creep Score"
+Below is a screenshot of one of the GGplot2 charts I created:
 
 ![Picture](https://github.com/zachmort/League-of-Legends-Data-Analysis/blob/main/creepscroe_vs_earnedgold_scatterplot.png)
 
@@ -44,7 +43,7 @@ Below is a screenshot of one of the interactive PLotly charts:
   - RColorBrewer
   
 # Table of contents
-- [Project Title](#League-of-Legends-Data-Analysis)
+- [Project Title](#Olympics-data-analysis-and-visualization)
 - [Preview](#preview)
 - [Table of contents](#table-of-contents)
 - [Packages Used](#Packages-Used)
