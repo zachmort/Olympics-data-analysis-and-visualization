@@ -4,6 +4,8 @@ if (!require("pacman")) install.packages("pacman")
 
 pacman::p_load(tidyverse,gganimate, data.table, knitr, gridExtra, plotly)
 
+setwd("C:/Users/zman7/OneDrive/Olympics_data_analysis")
+
 
 #Loading events table data
 eventsdata <- read_csv("athlete_events.csv", 
@@ -57,7 +59,8 @@ eventsdata %>%
 
 
 #males vs females in events
-eventsexcount <- eventsdata
+eventsexcount <- eventsdata %>%
+  filter(Sport != "Art Competitions")
 
 
 # AFTER 1992, CHANGE THE YEAR OF THE WINTER GAMES TO COINCIDE WITH THE NEXT SUMMER GAMES. THE TERM "YEAR" CURRENTLY REFERS TO THE OLYMPICS TOOK PLACE
@@ -68,25 +71,28 @@ for (i in 1:length(wintergamesyears)) {
 }
 eventsexcount$Year <- as.integer(eventsexcount$Year)
 
-countsex <- eventsdata %>%
+countsex <- eventsexcount %>%
   group_by(Year,Sex) %>%
-  summarise(sexcount = length(unique(ID)))
+  summarise(count = length(unique(ID)))
 
 countsex$Year <- as.integer(countsex$Year)
 
-ggplot(countsex, aes(x=Year, y=sexcount, group=Sex, color=Sex)) +
+ggplot(countsex, aes(x=Year, y=count, group=Sex, color=Sex)) +
   geom_point(size=2) +
   geom_line()  +
   transition_reveal(Year)+
   scale_color_manual(values=c("deepskyblue4","red4")) +
-  labs(x = "Year", y = "Athletes", 
+  labs(x = "Year", y = "Athletes Count", 
        title="Male and Female athletes over time", 
        subtitle = "Olympic Games from 1896 to 2016")
 
-#which NOC had the highest number of unique(ID)
+
+#which NOC had the highest number of participants
 eventsdata_2 <- eventsdata
 events_region_joined <- dplyr::left_join(eventsdata_2, regionsdata, by = "NOC")
-participantscount <- participantscount %>% select (ID, region, Year)
+events_region_joined
+participantscount <- events_region_joined %>% select (ID, region, Year)
+participantscount
 
 participantcounts <- participantscount %>%
   group_by(region) %>%
@@ -96,8 +102,32 @@ participantcounts <- participantscount %>%
 
 participantcounts
 
-#scatter plot with number of male andd female participants per each NOC
 
+#scatter plot with number of male and female participants per each Region
+
+
+sexcount.perregion <- events_region_joined %>%
+  select(region , Sex) %>%
+  group_by(region) %>%
+  count(Sex)
+
+sexcount.perregion
+
+#alternative way
+events_region_joined %>%
+  group_by(region , Sex) %>%
+  summarize(count = n())
+
+#using spread function from tidyr to make the dataset more readable
+data.plot <- sexcount.perregion %>% spread(Sex, n)
+data.plot
+
+#ploting this graph
+ggplot(data.plot) +
+  geom_point(aes(x = F, y = M, color = region)) +
+  theme(legend.position = "none") +
+  ggtitle("Plot of Regions and the number of Male and Female participants (Totals)") +
+  xlab("Female Count Total") + ylab("Male Count Total")
 
 #Avg age, weight and height of basketball players (pre 2000 and post 2000)
 events_region_joined %>%
@@ -108,7 +138,6 @@ events_region_joined %>%
             avgweight = mean(Weight),
             avgage = mean(Age))
 
-#add scatter plot
 
 #which country is the best at certain sports
 #look at sport and get a count of number of medals and number of gold medals per country/location
@@ -130,5 +159,24 @@ events_region_joined %>%
   slice(1:1)
 
 
+#looking at average height per sport
+
+#10 tallest sports
+eventsdata %>%
+  select(Sport, Height) %>%
+  na.omit(Height) %>%
+  group_by(Sport) %>%
+  summarize(avgheight = mean(Height)) %>%
+  arrange(desc(avgheight)) %>%
+  slice(1:10)
+
+#10 shortest sports
+eventsdata %>%
+  select(Sport, Height) %>%
+  na.omit(Height) %>%
+  group_by(Sport) %>%
+  summarize(avgheight = mean(Height)) %>%
+  arrange(avgheight) %>%
+  slice(1:10)
 
 
